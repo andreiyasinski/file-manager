@@ -1,9 +1,9 @@
 import { stat } from "fs/promises";
 import path from "path";
 
-export const cd = async (directory, command) => {
+export const cd = async (directory, args) => {
   try {
-    const directoryName = command.split(" ")?.[1];
+    const directoryName = args?.[0];
 
     const itemStat = await stat(path.join(directory, directoryName));
 

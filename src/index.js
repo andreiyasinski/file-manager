@@ -5,6 +5,7 @@ import { ls } from "./commands/ls.js";
 import { up } from "./commands/up.js";
 import { cd } from "./commands/cd.js";
 import { cat } from "./commands/cat.js";
+import { add } from "./commands/add.js";
 
 const rl = createInterface({
   input: process.stdin,
@@ -30,35 +31,35 @@ const fileManager = async () => {
   console.log("Enter the command");
 
   rl.on("line", async (input) => {
-    const command = input;
+    const [command, ...argsArr] = input.split(" ");
 
-    if (command === ".exit") {
-      exit();
-      return;
+    switch (command) {
+      case ".exit":
+        exit();
+        break;
+      case "ls":
+        ls(currentDirectory);
+        break;
+      case "up":
+        up(currentDirectory);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      case "cd":
+        currentDirectory = await cd(currentDirectory, argsArr);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      case "cat":
+        await cat(currentDirectory, argsArr);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      case "add":
+        await add(currentDirectory, argsArr);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      default:
+        console.log("Invalid input");
+        break;
     }
-
-    if (command === "ls") {
-      ls(currentDirectory);
-      return;
-    }
-
-    if (command === "up") {
-      up(currentDirectory);
-      return;
-    }
-
-    if (command.startsWith("cd ")) {
-      currentDirectory = await cd(currentDirectory, command);
-      currentDirectoryInfo(currentDirectory);
-      return;
-    }
-
-    if (command.startsWith("cat ")) {
-      await cat(currentDirectory, command);
-      return;
-    }
-
-    console.log("Invalid input");
   });
 
   rl.on("SIGINT", () => {
