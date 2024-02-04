@@ -1,5 +1,5 @@
 import { createReadStream } from "fs";
-import { readdir, stat } from "fs/promises";
+import { stat } from "fs/promises";
 import path from "path";
 import { stdout } from "process";
 

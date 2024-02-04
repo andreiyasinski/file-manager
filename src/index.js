@@ -7,6 +7,7 @@ import { cd } from "./commands/cd.js";
 import { cat } from "./commands/cat.js";
 import { add } from "./commands/add.js";
 import { rn } from "./commands/rn.js";
+import { cp } from "./commands/cp.js";
 
 const rl = createInterface({
   input: process.stdin,
@@ -59,6 +60,10 @@ const fileManager = async () => {
         break;
       case "rn":
         await rn(currentDirectory, argsArr);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      case "cp":
+        await cp(argsArr);
         currentDirectoryInfo(currentDirectory);
         break;
       default:
