@@ -1,8 +1,9 @@
 import { createWriteStream, createReadStream } from "fs";
+import { rm, unlink } from "fs/promises";
 import path from "path";
 import { pipeline } from "stream";
 
-export const cp = async (args) => {
+export const mv = async (args) => {
   try {
     const pathToFile = args?.[0];
     const pathToCopyDirectory = args?.[1];
@@ -18,6 +19,8 @@ export const cp = async (args) => {
         if (error) {
           reject(new Error());
         }
+
+        await unlink(pathToFile);
       });
       response();
     });
