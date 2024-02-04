@@ -41,7 +41,7 @@ const fileManager = async () => {
         ls(currentDirectory);
         break;
       case "up":
-        up(currentDirectory);
+        currentDirectory = await up(currentDirectory);
         currentDirectoryInfo(currentDirectory);
         break;
       case "cd":
