@@ -4,6 +4,7 @@ import os from "node:os";
 import { ls } from "./commands/ls.js";
 import { up } from "./commands/up.js";
 import { cd } from "./commands/cd.js";
+import { cat } from "./commands/cat.js";
 
 const rl = createInterface({
   input: process.stdin,
@@ -49,6 +50,11 @@ const fileManager = async () => {
     if (command.startsWith("cd ")) {
       currentDirectory = await cd(currentDirectory, command);
       currentDirectoryInfo(currentDirectory);
+      return;
+    }
+
+    if (command.startsWith("cat ")) {
+      await cat(currentDirectory, command);
       return;
     }
 

@@ -1,5 +1,3 @@
-import { readdir, stat } from "fs/promises";
-import path from "path";
 import os from "node:os";
 
 export const up = async (directory) => {
