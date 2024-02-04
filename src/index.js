@@ -1,11 +1,12 @@
 import { getName } from "./utils/getName.js";
-import { stdin, stdout, exit } from "process";
+import { stdin, stdout, exit, cwd } from "process";
 
 const fileManager = async () => {
   const userName = getName();
   console.log(`Welcome to the File Manager, ${userName}!`);
+  console.log(`You are currently in ${cwd()}`);
 
-  process.stdin.on("data", (chunk) => {
+  stdin.on("data", (chunk) => {
     const command = chunk.toString();
 
     if (command.includes(".exit")) {
