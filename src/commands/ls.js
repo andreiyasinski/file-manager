@@ -5,16 +5,29 @@ export const ls = async (directory) => {
   try {
     const files = await readdir(directory);
 
-    const tableData = [];
+    const tableFilesData = [];
+    const tableDirectoriesData = [];
 
     for (let item of files) {
       const itemStat = await stat(path.join(directory, item));
 
-      tableData.push({
-        name: item,
-        type: itemStat.isDirectory() ? "directory" : "file",
-      });
+      if (itemStat.isDirectory()) {
+        tableDirectoriesData.push({
+          name: item,
+          type: "directory",
+        });
+      } else {
+        tableFilesData.push({
+          name: item,
+          type: "file",
+        });
+      }
     }
+
+    const tableData = [
+      ...tableDirectoriesData.sort((a, b) => a.name.localeCompare(b.name)),
+      ...tableFilesData.sort((a, b) => a.name.localeCompare(b.name)),
+    ];
 
     console.table(tableData);
   } catch {
