@@ -9,6 +9,7 @@ import { add } from "./commands/add.js";
 import { rn } from "./commands/rn.js";
 import { cp } from "./commands/cp.js";
 import { mv } from "./commands/mv.js";
+import { rm } from "./commands/rm.js";
 
 const rl = createInterface({
   input: process.stdin,
@@ -69,6 +70,10 @@ const fileManager = async () => {
         break;
       case "mv":
         await mv(argsArr);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      case "rm":
+        await rm(argsArr);
         currentDirectoryInfo(currentDirectory);
         break;
       default:
