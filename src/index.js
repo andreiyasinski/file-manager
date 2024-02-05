@@ -12,6 +12,8 @@ import { mv } from "./commands/mv.js";
 import { rm } from "./commands/rm.js";
 import { operatingSystem } from "./commands/os.js";
 import { hash } from "./commands/hash.js";
+import { compress } from "./commands/compress.js";
+import { decompress } from "./commands/decompress.js";
 
 const rl = createInterface({
   input: process.stdin,
@@ -84,6 +86,14 @@ const fileManager = async () => {
         break;
       case "hash":
         await hash(argsArr);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      case "compress":
+        await compress(argsArr);
+        currentDirectoryInfo(currentDirectory);
+        break;
+      case "decompress":
+        await decompress(argsArr);
         currentDirectoryInfo(currentDirectory);
         break;
       default:
